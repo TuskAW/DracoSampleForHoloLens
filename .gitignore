@@ -1,8 +1,3 @@
-# ========================================== #
-# Do not ignore .obj file for geometry data  #
-# ========================================== #
-!Assets/*/*.obj
-
 # ===================================== #
 # Visual Studio Code generated          #
 # ===================================== #
@@ -51,3 +46,8 @@ obj/
 *.opendb
 WSATestCertificate.pfx
 WSATestCertificate.pfx.meta
+
+# ========================================== #
+# Do not ignore .obj file for geometry data  #
+# ========================================== #
+!Assets/*/*.obj
