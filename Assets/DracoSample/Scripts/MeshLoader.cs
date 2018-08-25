@@ -22,7 +22,13 @@ public class MeshLoader
             List<Mesh> meshes = new List<Mesh>();
     		DracoMeshLoader dracoLoader = new DracoMeshLoader();
 
+            long startTicks = DateTime.Now.Ticks;
+
     		int numFaces = dracoLoader.LoadMeshFromAsset(assetpath, ref meshes);
+
+            long endTicks = DateTime.Now.Ticks;
+            // Debug.Log("DracoMeshLoader - LoadMeshFromAsset: " + (endTicks - startTicks) * 100  + "[ns]");
+            Debug.Log("DracoMeshLoader - LoadMeshFromAsset: " + (endTicks - startTicks) / 10000  + "[ms]");
 
             if(numFaces > 0)
             {

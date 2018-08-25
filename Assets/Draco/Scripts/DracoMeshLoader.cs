@@ -190,21 +190,38 @@ public unsafe class DracoMeshLoader
 			return -1;
 		}
 		byte[] encodedData = asset.bytes;
-		Debug.Log (encodedData.Length.ToString ());
+		// Debug.Log (encodedData.Length.ToString ());
 		if (encodedData.Length == 0) {
 			Debug.Log ("Didn't load encoded data!");
 			return -1;
 		}
-		return DecodeMesh (encodedData, ref meshes);
+		// return DecodeMesh (encodedData, ref meshes);
+
+		long startTicks = DateTime.Now.Ticks;
+
+		int result = DecodeMesh (encodedData, ref meshes);
+
+		long endTicks = DateTime.Now.Ticks;
+		// Debug.Log("DracoMeshLoader - DecodeMesh: " + (endTicks - startTicks) * 100  + "[ns]");
+		Debug.Log("DracoMeshLoader - DecodeMesh: " + (endTicks - startTicks) / 10000  + "[ms]");
+
+		return result;
 	}
 
 	public unsafe int DecodeMesh (byte[] data, ref List<Mesh> meshes)
 	{
 		DracoToUnityMesh* tmpMesh;
+		
+		long startTicks = DateTime.Now.Ticks;
+
 		if (DecodeMeshForUnity (data, data.Length, &tmpMesh) <= 0) {
 			Debug.Log ("Failed: Decoding error.");
 			return -1;
 		}
+
+		long endTicks = DateTime.Now.Ticks;
+		// Debug.Log("DracoMeshLoader - DecodeMeshForUnity: " + (endTicks - startTicks) * 100  + "[ns]");
+		Debug.Log("DracoMeshLoader - DecodeMeshForUnity: " + (endTicks - startTicks) / 10000  + "[ms]");
 
 		Debug.Log ("Num indices: " + tmpMesh->numFaces.ToString ());
 		Debug.Log ("Num vertices: " + tmpMesh->numVertices.ToString ());
